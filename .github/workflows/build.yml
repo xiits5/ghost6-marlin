@@ -1,28 +1,24 @@
-name: Build Ghost 6 firmware
+name: Build Ghost 6 firmware (vertical UI)
 on: [push, workflow_dispatch]
 jobs:
   build:
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        profile: [safe, galaxy_lite, safe_noeeprom]
     steps:
       - uses: actions/checkout@v4
-      - name: Get Marlin (pinned commit)
+      - name: Get FB-G6 Marlin fork (pinned commit, portrait 320x480 UI)
         run: |
-          git clone https://github.com/MarlinFirmware/Marlin.git M
-          cd M && git checkout 2d858089937261cbf158530060d50a58db192c5d
+          git clone https://github.com/booroondook-eng/FlyingBear_Ghost-6-Marlin.git M
+          cd M && git checkout c4f110fd4223eb16251861506c103dc064979448
       - name: Copy configs
-        run: cp profiles/${{ matrix.profile }}/Configuration.h profiles/${{ matrix.profile }}/Configuration_adv.h M/Marlin/
+        run: cp profiles/vertical/Configuration.h profiles/vertical/Configuration_adv.h M/Marlin/
       - uses: actions/setup-python@v5
         with: { python-version: '3.11' }
       - run: pip install platformio
       - name: Build
-        run: cd M && pio run -e mks_robin_nano_v3_1
+        run: cd M && pio run -e mks_robin_nano_v3
       - name: Rename for the Nano4 bootloader
-        run: cp M/.pio/build/mks_robin_nano_v3_1/Robin_nano_v3.bin Robin_nano_4.bin
+        run: cp M/.pio/build/mks_robin_nano_v3/firmware.bin Robin_nano_4.bin
       - uses: actions/upload-artifact@v4
         with:
-          name: Robin_nano_4-${{ matrix.profile }}
+          name: Robin_nano_4-vertical
           path: Robin_nano_4.bin
