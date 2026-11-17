@@ -1,5 +1,5 @@
 name: Build Ghost 6 firmware
-on: [workflow_dispatch]
+on: [push, workflow_dispatch]
 jobs:
   build:
     runs-on: ubuntu-latest
