@@ -3508,7 +3508,7 @@
 // Usually paired with MKS Robin Nano V2 & V3
 // https://github.com/makerbase-mks/MKS-TFT-Hardware/tree/master/MKS%20TS35
 //
-//#define MKS_TS35_V2_0
+#define MKS_TS35_V2_0
 
 //
 // MKS TS24-R V2.1 (2.4" 320x240 ST7789V) as shipped with the MKS DLC32
@@ -3602,12 +3602,12 @@
 
   // Interface. Enable one of the following options:
   //#define TFT_INTERFACE_FSMC
-  #define TFT_INTERFACE_SPI
+  //#define TFT_INTERFACE_SPI
 
   // TFT Resolution. Enable one of the following options:
   //#define TFT_RES_320x240
   //#define TFT_RES_480x272
-  #define TFT_RES_480x320
+  //#define TFT_RES_480x320
   //#define TFT_RES_1024x600
 #endif
 
